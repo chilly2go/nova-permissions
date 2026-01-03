@@ -12,8 +12,6 @@ class Tool extends BaseTool
 {
     /**
      * Perform any tasks that need to happen when the tool is booted.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -28,14 +26,12 @@ class Tool extends BaseTool
 
     /**
      * Build the view that renders the navigation links for the tool.
-     *
-     * @return \Illuminate\View\View
      */
     public function renderNavigation(): \Illuminate\View\View
     {
         return view('nova-permissions::navigation');
     }
-//    ErrorException: file_get_contents(/home/chilly/PhpstormProjects/nova-permissions/src/../dist/css/tool.css): Failed to open stream: No such file or directory in file /var/www/vendor/laravel/nova/src/Asset.php on line 115
+    //    ErrorException: file_get_contents(/home/chilly/PhpstormProjects/nova-permissions/src/../dist/css/tool.css): Failed to open stream: No such file or directory in file /var/www/vendor/laravel/nova/src/Asset.php on line 115
 
     /**
      * Get the displayable name of the resource tool.

@@ -1,4 +1,5 @@
 <?php
+
 return [
     'Clear Selection' => 'Clear Selection',
     'Guard Name' => 'Guard Name',
@@ -9,5 +10,5 @@ return [
     'Role' => 'Role',
     'Roles' => 'Roles',
     'Select all' => 'Select all',
-    'Users' => 'Users'
+    'Users' => 'Users',
 ];

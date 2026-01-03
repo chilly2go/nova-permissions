@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('endpoint', \Chilly2go\NovaPermissions\Http\Controllers\ToolController::class . '@index');
+Route::get('endpoint', \Chilly2go\NovaPermissions\Http\Controllers\ToolController::class.'@index');

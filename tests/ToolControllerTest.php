@@ -2,10 +2,6 @@
 
 namespace Chilly2go\NovaPermissions\Tests;
 
-use Chilly2go\NovaPermissions\Http\Controllers\ToolController;
-use Chilly2go\NovaPermissions\Tool;
-use Symfony\Component\HttpFoundation\Response;
-
 class ToolControllerTest extends TestCase
 {
     /** @test */

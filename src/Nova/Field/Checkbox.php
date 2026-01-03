@@ -14,7 +14,7 @@ class Checkbox extends Field
      */
     public $component = 'permission-checkboxes';
 
-    public function __construct($name, $attribute = null, callable|null $resolveCallback = null)
+    public function __construct($name, $attribute = null, ?callable $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);
         $this->withMeta(['translation_prefix' => config('nova-permissions.translation_prefix')]);
@@ -22,9 +22,6 @@ class Checkbox extends Field
 
     /**
      * Specify the available options
-     *
-     * @param array $options
-     * @return self
      */
     public function options(array $options): Checkbox
     {
@@ -42,11 +39,9 @@ class Checkbox extends Field
     /**
      * Hydrate the given attribute on the model based on the incoming request.
      *
-     * @param NovaRequest $request
-     * @param string $requestAttribute
-     * @param object $model
-     * @param string $attribute
-     * @return void
+     * @param  string  $requestAttribute
+     * @param  object  $model
+     * @param  string  $attribute
      */
     protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute): void
     {
@@ -56,7 +51,7 @@ class Checkbox extends Field
              * As a result we need to include this check and explode the values if required.
              */
             $permissions = [];
-            if (!is_array($choices = $request[$requestAttribute])) {
+            if (! is_array($choices = $request[$requestAttribute])) {
                 $permissions = collect(explode(',', $choices))->reject(function ($name) {
                     return empty($name);
                 })->all();

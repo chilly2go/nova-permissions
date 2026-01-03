@@ -2,23 +2,21 @@
 
 namespace chilly2go\NovaPermissions\Nova;
 
-use chilly2go\NovaPermissions\Nova\Field\Checkbox;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\MorphToMany;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Resource;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Illuminate\Validation\Rule;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\MorphToMany;
-use Laravel\Nova\Fields\BelongsToMany;
 use Spatie\Permission\Models\Permission as SpatiePermission;
+
 class Permission extends Resource
 {
     /**
      * The model the resource corresponds to.
-     *
-     * @var string
      */
     public static string $model = SpatiePermission::class;
 
@@ -28,7 +26,7 @@ class Permission extends Resource
      * @var array
      */
     public static $search = [
-        'name', 'group'
+        'name', 'group',
     ];
 
     /**
@@ -43,7 +41,6 @@ class Permission extends Resource
      */
     public static $displayInNavigation = true;
 
-
     /**
      * Indicates if the resource should be globally searchable.
      *
@@ -54,16 +51,13 @@ class Permission extends Resource
     public static function group(): array|string|null
     {
         return __(
-            config('nova-permissions.translation_prefix', 'permissions.') .
+            config('nova-permissions.translation_prefix', 'permissions.').
             config('nova-permissions.resource_group.permission', 'Permissions.Permissions')
         );
     }
 
     /**
      * Get the actions available for the resource.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return array
      */
     public function actions(Request $request): array
     {
@@ -73,9 +67,6 @@ class Permission extends Resource
 
     /**
      * Get the cards available for the request.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return array
      */
     public function cards(Request $request): array
     {
@@ -84,10 +75,6 @@ class Permission extends Resource
 
     /**
      * Get the fields displayed by the resource.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return array
      */
     public function fields(Request $request): array
     {
@@ -100,12 +87,11 @@ class Permission extends Resource
         return [
             ID::make('Id', 'id')
                 ->rules('required')
-                ->hideFromIndex()
-            ,
+                ->hideFromIndex(),
             Text::make(__('Name'), 'name')
                 ->rules(['required', 'string', 'max:255'])
-                ->creationRules('unique:' . config('permission.table_names.permissions'))
-                ->updateRules('unique:' . config('permission.table_names.permissions') . ',name,{{resourceId}}'),
+                ->creationRules('unique:'.config('permission.table_names.permissions'))
+                ->updateRules('unique:'.config('permission.table_names.permissions').',name,{{resourceId}}'),
 
             Text::make(__('Description'), 'description')
                 ->rules(['required', 'string', 'max:255']),
@@ -123,9 +109,6 @@ class Permission extends Resource
 
     /**
      * Get the filters available for the resource.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return array
      */
     public function filters(Request $request): array
     {
@@ -134,8 +117,6 @@ class Permission extends Resource
 
     /**
      * Get the displayable label of the resource.
-     *
-     * @return string
      */
     public static function label(): string
     {
@@ -144,9 +125,6 @@ class Permission extends Resource
 
     /**
      * Get the lenses available for the resource.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return array
      */
     public function lenses(Request $request): array
     {
@@ -155,8 +133,6 @@ class Permission extends Resource
 
     /**
      * Get the displayable singular label of the resource.
-     *
-     * @return string
      */
     public static function singularLabel(): string
     {

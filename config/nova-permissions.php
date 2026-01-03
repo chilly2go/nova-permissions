@@ -1,4 +1,5 @@
 <?php
+
 return [
     'show_in_navigation' => [
         'role' => env('TRANSLATION_ROLE_SHOW_IN_NAVIGATION', true),

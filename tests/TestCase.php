@@ -2,13 +2,13 @@
 
 namespace Chilly2go\NovaPermissions\Tests;
 
+use Chilly2go\NovaPermissions\ToolServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Chilly2go\NovaPermissions\ToolServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 

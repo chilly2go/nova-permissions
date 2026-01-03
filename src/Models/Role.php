@@ -13,9 +13,6 @@ class Role extends SpatieRole
      */
     protected $appends = ['prepared_permissions'];
 
-    /**
-     * @return array
-     */
     public function getPreparedPermissionsAttribute(): array
     {
         return $this->permissions->pluck('name')->toArray();
