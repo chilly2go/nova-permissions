@@ -1,0 +1,11 @@
+/* Nova Tool CSS */
+
+.bg-danger {
+    /*background-color: #ff6961;*/
+    background-color: rgba(var(--colors-red-500));
+}
+
+.bg-success {
+    /*background-color: #22d39a;*/
+    background-color: rgba(var(--colors-green-500));
+}

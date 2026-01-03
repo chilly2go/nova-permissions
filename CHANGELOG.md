@@ -1,7 +1,7 @@
 # Changelog
 
-All notable changes to `:package_name` will be documented in this file
+All notable changes to `nova-permissions` will be documented in this file
 
-## 1.0.0 - 2018-XX-XX
+## 1.0.0 - 2026-01-02
 
-- initial release
+- initial release with spatie/laravel-permission v6.1 for Laravel Nova 4

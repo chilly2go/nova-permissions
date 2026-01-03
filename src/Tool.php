@@ -1,7 +1,10 @@
 <?php
 
-namespace :namespace_vendor\:namespace_tool_name;
+namespace chilly2go\NovaPermissions;
 
+use chilly2go\NovaPermissions\Nova\Permission;
+use chilly2go\NovaPermissions\Nova\Role;
+use Illuminate\Http\Request;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool as BaseTool;
 
@@ -12,10 +15,15 @@ class Tool extends BaseTool
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        Nova::script(':package_name', __DIR__.'/../dist/js/tool.js');
-        Nova::style(':package_name', __DIR__.'/../dist/css/tool.css');
+        Nova::script('nova-permissions', __DIR__.'/../dist/js/tool.js');
+        Nova::style('nova-permissions', __DIR__.'/../dist/css/tool.css');
+
+        Nova::resources([
+            Permission::class,
+            Role::class,
+        ]);
     }
 
     /**
@@ -23,8 +31,27 @@ class Tool extends BaseTool
      *
      * @return \Illuminate\View\View
      */
-    public function renderNavigation()
+    public function renderNavigation(): \Illuminate\View\View
     {
-        return view(':package_name::navigation');
+        return view('nova-permissions::navigation');
+    }
+//    ErrorException: file_get_contents(/home/chilly/PhpstormProjects/nova-permissions/src/../dist/css/tool.css): Failed to open stream: No such file or directory in file /var/www/vendor/laravel/nova/src/Asset.php on line 115
+
+    /**
+     * Get the displayable name of the resource tool.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return 'Roles & Permissions';
+    }
+
+    /**
+     * We use the Tool as entry point. We actually rely on a new Field and 2 Resources using said field.
+     */
+    public function menu(Request $request)
+    {
+        return null;
     }
 }

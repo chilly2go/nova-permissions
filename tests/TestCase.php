@@ -1,10 +1,10 @@
 <?php
 
-namespace :namespace_vendor\:namespace_tool_name\Tests;
+namespace Chilly2go\NovaPermissions\Tests;
 
 use Illuminate\Support\Facades\Route;
 use Orchestra\Testbench\TestCase as Orchestra;
-use :namespace_vendor\:namespace_tool_name\ToolServiceProvider;
+use Chilly2go\NovaPermissions\ToolServiceProvider;
 
 abstract class TestCase extends Orchestra
 {

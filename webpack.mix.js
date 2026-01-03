@@ -1,9 +1,19 @@
 let mix = require('laravel-mix')
 
-mix.js('resources/js/tool.js', 'dist/js')
-    .vue({ version: 2 })
+require('./nova.mix')
+
+mix
+    .setPublicPath('dist')
+    .js('resources/js/tool.js', 'js')
+    .vue({ version: 3 })
+    .css('resources/css/tool.css', 'css')
     .webpackConfig({
         externals: {
             Vue: 'vue',
-        }
-    });
+        },
+        output: {
+            uniqueName: 'chilly2go/nova-permissions',
+        },
+    })
+    .nova('chilly2go/nova-permissions')
+;

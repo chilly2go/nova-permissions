@@ -1,48 +1,49 @@
 {
-    "name": ":vendor/:package_name",
-    "description": ":package_description",
+    "name": "chilly2go/nova-permissions",
+    "description": "Nova Permissions tool based on spatie permissions",
     "keywords": [
         "laravel",
         "nova"
     ],
     "repositories": [
         {
-            "type": "path",
-            "url": "../laravel-nova"
+            "type": "composer",
+            "url": "https://nova.laravel.com"
         }
     ],
-    "homepage": "https://github.com/:vendor/:package_name",
+    "homepage": "https://github.com/chilly2go/nova-permissions",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
+            "name": "chilly2go",
+            "email": "code@chilly2go.de",
             "role": "Developer"
         }
     ],
     "require": {
         "php": ">=8.0",
-        "laravel/nova": "*",
-        "ext-readline": "*"
+        "laravel/nova": "^4.0",
+        "ext-readline": "*",
+        "spatie/laravel-permission": "^6.1.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^3.6",
-        "phpunit/phpunit": "7.1"
+        "orchestra/testbench": "^v10.8.0",
+        "phpunit/phpunit": "^12.5.4"
     },
     "autoload": {
         "psr-4": {
-            ":namespace_vendor\\:namespace_tool_name\\": "src/"
+            "Chilly2go\\NovaPermissions\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            ":namespace_vendor\\:namespace_tool_name\\Tests\\": "tests"
+            "Chilly2go\\NovaPermissions\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                ":namespace_vendor\\:namespace_tool_name\\ToolServiceProvider"
+                "chilly2go\\NovaPermissions\\ToolServiceProvider"
             ]
         }
     },

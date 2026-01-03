@@ -13,14 +13,14 @@
         "lint": "eslint resources/js --fix --ext js,vue"
     },
     "devDependencies": {
-        "cross-env": "^5.0.0",
-        "eslint": "^4.19.1",
-        "eslint-config-prettier": "^2.9.0",
-        "eslint-plugin-vue": "^4.4.0",
-        "laravel-mix": "^6.0",
-        "prettier": "^1.14.0"
+        "@vue/compiler-sfc": "^3.2.22",
+        "form-backend-validation": "^2.3.3",
+        "laravel-mix": "^6.0.41",
+        "postcss": "^8.3.11",
+        "vue-loader": "^16.8.3",
+        "lodash": "^4.17.21",
+        "vue": "^3.2.22"
     },
     "dependencies": {
-        "animated-scroll-to": "^1.2.2"
     }
 }

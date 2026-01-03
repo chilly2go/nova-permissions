@@ -1,90 +1,29 @@
 
 [<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />](https://supportukrainenow.org)
 
+# Nova Permissions tool based on spatie permissions
 
+[//]: # ([![Latest Version on Packagist]&#40;https://img.shields.io/packagist/v/chilly2go/nova-permissions.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/chilly2go/nova-permissions&#41;)
+![CircleCI branch](https://img.shields.io/circleci/project/github/chilly2go/nova-permissions/master.svg?style=flat-square)
+[![Build Status](https://img.shields.io/travis/chilly2go/nova-permissions/master.svg?style=flat-square)](https://travis-ci.org/chilly2go/nova-permissions)
+[![Quality Score](https://img.shields.io/scrutinizer/g/chilly2go/nova-permissions.svg?style=flat-square)](https://scrutinizer-ci.com/g/chilly2go/nova-permissions)
+[//]: # ([![Total Downloads]&#40;https://img.shields.io/packagist/dt/chilly2go/nova-permissions.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/chilly2go/nova-permissions&#41;)
 
-## Support us
+I liked how [GrapheneICT/nova-permissions](https://github.com/GrapheneICT/nova-permissions) looked. 
+But it lacked nova 4 support.
+So here is what I think might be an "ok" take on working with Nova 4 and Spatie/Permissions v6.
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/skeleton-nova-tool.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/skeleton-nova-tool)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
-
-<!--delete-->
-
-## Using this skeleton (remove this section after you have completed these steps)
-
----
-This repo can be used to scaffold a Laravel package. Follow these steps to get started:
-
-1. Press the "Use this template" button at the top of this repo to create a new repo with the contents of this skeleton.
-2. Run "php ./configure.php" to run a script that will replace all placeholders throughout all the files.
-3. Have fun creating your package.
-4. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
-
-## Manual Setup
-This repo contains a skeleton to easily create Nova Tool packages. It contains a few niceties not present in the default Nova Tool scaffolding.
-
-First clone this repo to your development machine and remove the `.git` directory. Next run `git init` to create another repo. Create a new repo on GitHub (or another source control saas) and point the origin remote of your cloned repo to the one you just created. Here's an example: `git remote add origin git@github.com:spatie/newly-created-repo.git`. Commit all files and push to master.
-
-Next replace these variables in all files of your repo:
- - `:author_name` (example: 'Freek Van der Herten')
- - `:author_username` (example: 'freekmurze')
- - `:author_email` (example: 'freek@spatie.be')
- - `:package_name` (example: 'nova-tail-tool')
- - `:package_description` (example: 'A tool to tail the log')
- - `:vendor` (example: 'spatie')
- - `:namespace_vendor` (example: 'Spatie')
- - `:namespace_tool_name` (example: 'TailTool')
- 
- Next run `composer install`, `yarn` and `yarn production`.
- 
-If you don't have a Nova app already head over the [nova installation instructions](https://nova.laravel.com/docs/1.0/installation.html#installing-nova).
-
-To use your customized package in a Nova app, add this line in the `require` section of the `composer.json` file:
- 
- ```
-    ":vendor/:package_name": "*",
-```
- 
- In the same `composer.json` file add a `repositiories` section with the path to your package repo:
- 
- ```
-     "repositories": [
-         {
-             "type": "path",
-             "url": "../:package_name"
-         },
-```
- 
-Now you're ready to develop your package inside a Nova app.
- 
-**When you are done with the steps above delete everything above!**
-<!--/delete-->
-# :package_description
-
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor/:package_name.svg?style=flat-square)](https://packagist.org/packages/:vendor/:package_name)
-![CircleCI branch](https://img.shields.io/circleci/project/github/:vendor/:package_name/master.svg?style=flat-square)
-[![Build Status](https://img.shields.io/travis/:vendor/:package_name/master.svg?style=flat-square)](https://travis-ci.org/:vendor/:package_name)
-[![Quality Score](https://img.shields.io/scrutinizer/g/:vendor/:package_name.svg?style=flat-square)](https://scrutinizer-ci.com/g/:vendor/:package_name)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor/:package_name.svg?style=flat-square)](https://packagist.org/packages/:vendor/:package_name)
-
-
-This is where your description should go. Try and limit it to a paragraph or two.
-
-Add a screenshot of the tool here.
 
 ## Installation
 
 You can install the package in to a Laravel app that uses [Nova](https://nova.laravel.com) via composer:
 
 ```bash
-composer require :vendor/:package_name
+composer require chilly2go/nova-permissions
 ```
 
 Next up, you must register the tool with Nova. This is typically done in the `tools` method of the `NovaServiceProvider`.
+By adding the tool the included Field and Resources are being registered.
 
 ```php
 // in app/Providers/NovaServiceProvider.php
@@ -95,20 +34,43 @@ public function tools()
 {
     return [
         // ...
-        new \:namespace_vendor\:namespace_tool_name\Tool(),
+        new \chilly2go\NovaPermissions\Tool,
     ];
 }
 ```
 
+## Publishing assets
+
+### Database migrations
+This migration adds a new column to the permissions table for grouping permissions.
+This is required for this package to work.
+It will initially iterate all permissions and try to set a reasonable default group based on the permission name.
+```bash
+php artisan vendor:publish --provider="chilly2go\NovaPermissions\ToolServiceProvider" --tag="migrations"
+```
+
+
+### Config Files
+This is optional and allows adjustments for Nova resource groups and translation prefix
+```bash
+php artisan vendor:publish --provider="chilly2go\NovaPermissions\ToolServiceProvider" --tag="config"
+```
+
+
+### Translation
+There is a translation file included that (by running the command below) will publish the translations to your projects lang folder.
+This is setup this way to allow easy enhancement for group name translations.
+
+```bash
+php artisan vendor:publish --provider="chilly2go\NovaPermissions\ToolServiceProvider" --tag="lang"
+```
+
 ## Usage
 
-Click on the ":package_name" menu item in your Nova app to see the tool provided by this package.
+By adding the tool in your ServiceProvider the Field and Resources are being registered.
+Resources will be shown in the Nova sidebar based on the configuration in the config file.
 
-## Testing
-
-``` bash
-composer test
-```
+I have not yet found a way to set `displayInNavigation` from a function call (`config('...')`) so those two settings are without a function.
 
 ## Changelog
 
@@ -120,19 +82,11 @@ Please see [CONTRIBUTING](https://github.com/spatie/.github/blob/main/CONTRIBUTI
 
 ## Security
 
-If you discover any security related issues, please email :author_email instead of using the issue tracker.
-
-## Postcardware
-
-You're free to use this package, but if it makes it to your production environment we highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using.
-
-Our address is: Spatie, Kruikstraat 22, 2018 Antwerp, Belgium.
-
-We publish all received postcards [on our company website](https://spatie.be/en/opensource/postcards).
+If you discover any security related issues, please email code@chilly2go.de instead of using the issue tracker.
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [chilly2go](https://github.com/chilly2go)
 
 ## License
 
