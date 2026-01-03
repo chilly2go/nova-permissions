@@ -7,6 +7,7 @@
 ![CircleCI branch](https://img.shields.io/circleci/project/github/chilly2go/nova-permissions/master.svg?style=flat-square)
 [![Build Status](https://img.shields.io/travis/chilly2go/nova-permissions/master.svg?style=flat-square)](https://travis-ci.org/chilly2go/nova-permissions)
 [![Quality Score](https://img.shields.io/scrutinizer/g/chilly2go/nova-permissions.svg?style=flat-square)](https://scrutinizer-ci.com/g/chilly2go/nova-permissions)
+
 [//]: # ([![Total Downloads]&#40;https://img.shields.io/packagist/dt/chilly2go/nova-permissions.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/chilly2go/nova-permissions&#41;)
 
 I liked how [GrapheneICT/nova-permissions](https://github.com/GrapheneICT/nova-permissions) looked. 
