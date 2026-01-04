@@ -10,7 +10,6 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Resource;
 use Spatie\Permission\Models\Permission as SpatiePermission;
@@ -103,20 +102,20 @@ class Role extends Resource
                     return request()->has('viaResource') !== null;
                 })
                 ->withGroups()->options(SpatiePermission::all()->map(function ($permission, $key) use ($prefix) {
-                    $labelKey = $prefix . $permission->name;
+                    $labelKey = $prefix.$permission->name;
                     $label = __($labelKey);
 
-                    if ($label === $labelKey)
+                    if ($label === $labelKey) {
                         $label = $permission->name;
+                    }
 
                     return [
-                        'group' => __($prefix . ucfirst($permission->group)),
+                        'group' => __($prefix.ucfirst($permission->group)),
                         'option' => $permission->name,
                         'label' => $label,
                     ];
 
-                })->groupBy('group')->toArray())
-            ,
+                })->groupBy('group')->toArray()),
             Text::make(__($prefix.'Users'), function () {
                 return $this->users()->count();
             })->exceptOnForms(),
