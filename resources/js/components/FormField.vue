@@ -6,73 +6,97 @@
                 <span class="ml-auto btn btn-primary btn-default custom-button" @click="uncheckAll()">{{ __(field.translation_prefix + 'Clear Selection') }}</span>
             </div>
 
-            <div class="flex flex-wrap">
-                <div
-                    v-for="(permissions, group) in field.options"
-                    :key="group"
-                    class="mb-2 pl-2 w-1/2"
-                >
+            <template v-if="separateGroupsAndPermissions">
+                <div class="grid grid-cols-5 gap-2">
+                    <div class="col-span-3">
+                        <PermissionGroup
+                            v-for="(permissions, group) in field.options"
+                            :key="group"
+                            :value="value" :group="group" :permissions="permissions"
+                        >
+                        </PermissionGroup>
+                    </div>
+                    <PermissionsView class="col-span-2" :field="field" edit v-model="value" @update:modelValue="handleChange"/>
+                </div>
+            </template>
+            <template v-else>
+                <div class="flex flex-wrap">
+                    <div
+                        v-for="(permissions, group) in field.options"
+                        :key="group"
+                        class="mb-2 pl-2 w-1/2"
+                    >
 
-                    <div class="cursor-pointer flex items-center px-2 py-2 bg-40 rounded-lg" @click="showItem(group)">
-                        <div class="w-full flex items-center">
-                            <h3 class="capitalize flex-1">{{ group }}</h3>
-                            <div class="flex flex-wrap">
-                                <div
-                                    v-for="(permission, option) in permissions"
-                                    :key="permission.option"
-                                    class="pr-2"
-                                >
-                                    <span class="inline-block rounded-full w-2 h-2" :class="optionClass(permission.option)"></span>
+                        <div class="cursor-pointer flex items-center px-2 py-2 bg-40 rounded-lg" @click="showItem(group)">
+                            <div class="w-full flex items-center">
+                                <h3 class="capitalize flex-1">{{ group }}</h3>
+                                <div class="flex flex-wrap">
+                                    <div
+                                        v-for="(permission, option) in permissions"
+                                        :key="permission.option"
+                                        class="pr-2"
+                                    >
+                                        <span class="inline-block rounded-full w-2 h-2" :class="optionClass(permission.option)"></span>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="ml-auto">
+                                <span class="font-bold text-xl" v-if="activeItem === group">&minus;</span>
+                                <span class="font-bold text-xl" v-else>&plus;</span>
+                            </div>
                         </div>
-                        <div class="ml-auto">
-                            <span class="font-bold text-xl" v-if="activeItem === group">&minus;</span>
-                            <span class="font-bold text-xl" v-else>&plus;</span>
-                        </div>
-                    </div>
 
-                    <div v-show="activeItem === group" class="w-1/3 bg-white shadow dark:bg-gray-800 px-2 py-2 border-l border-r border-b border-50 rounded-b-lg">
-                        <div
-                            v-for="(permission, option) in permissions"
-                            :key="permission.option"
-                            class="px-1 py-1 items-center flex gap-2"
-                        >
-                            <checkbox
-                                :value="permission.option"
-                                :checked="isChecked(permission.option)"
-                                @input="toggleOption(permission.option)"
-                                class="pr-2"
-                            ></checkbox>
-                            <label
-                                :for="field.name"
-                                class="w-full inline-block"
-                                v-text="permission.label"
-                                @click="toggleOption(permission.option)"
-                            ></label>
+                        <div v-show="activeItem === group" class="w-1/3 bg-white shadow dark:bg-gray-800 px-2 py-2 border-l border-r border-b border-50 rounded-b-lg">
+                            <div
+                                v-for="(permission, option) in permissions"
+                                :key="permission.option"
+                                class="px-1 py-1 items-center flex gap-2"
+                            >
+                                <checkbox
+                                    :value="permission.option"
+                                    :checked="isChecked(permission.option)"
+                                    @input="toggleOption(permission.option)"
+                                    class="pr-2"
+                                ></checkbox>
+                                <label
+                                    :for="field.name"
+                                    class="w-full inline-block"
+                                    v-text="permission.label"
+                                    @click="toggleOption(permission.option)"
+                                ></label>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <p
-                v-if="hasError"
-                class="my-2 text-danger"
-            >{{ firstError }}</p>
+                <p
+                    v-if="hasError"
+                    class="my-2 text-danger"
+                >{{ firstError }}</p>
+            </template>
         </template>
     </DefaultField>
 </template>
 
 <script>
 import {FormField, HandlesValidationErrors} from "laravel-nova";
+import PermissionsView from "./PermissionsView.vue";
+import PermissionGroup from "./PermissionGroup.vue";
 import {getOptionClass} from "../functions";
-import _ from "lodash";
+
 export default {
+    components: {PermissionGroup, PermissionsView},
     mixins: [FormField, HandlesValidationErrors],
     props: ["resourceName", "resourceId", "field"],
     data() {
         return {
             activeItem: null,
+            separateGroupsAndPermissions: this.field.separateGroupsAndPermissions ?? false,
         }
+    },
+    computed:{
+        allPermissions() {
+            return Array.isArray(this.field.options) ? this.field.options : Object.values(this.field.options).flat();
+        },
     },
     methods: {
         showItem(group) {
@@ -87,15 +111,13 @@ export default {
             }
         },
         checkAll() {
-            let permissions = Array.isArray(this.field.options) ? this.field.options : Object.values(this.field.options).flat();;
-            for (var i = 0; i < permissions.length; i++) {
-                this.check(permissions[i].option);
+            for (let i = 0; i < this.allPermissions.length; i++) {
+                this.check(this.allPermissions[i].option);
             }
         },
         uncheckAll() {
-            let permissions = Array.isArray(this.field.options) ? this.field.options : Object.values(this.field.options).flat();
-            for (var i = 0; i < permissions.length; i++) {
-                this.uncheck(permissions[i].option);
+            for (let i = 0; i < this.allPermissions.length; i++) {
+                this.uncheck(this.allPermissions[i].option);
             }
         },
         check(option) {
@@ -127,9 +149,6 @@ export default {
         fill(formData) {
             formData.append(this.field.attribute, this.value || []);
         },
-        /**
-         * Update the field's internal value.
-         */
         handleChange(value) {
             this.value = value;
         },

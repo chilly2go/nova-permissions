@@ -20,6 +20,11 @@ class Checkbox extends Field
         $this->withMeta(['translation_prefix' => config('nova-permissions.translation_prefix')]);
     }
 
+    public function separateGroupsAndPermissions(bool $value = true): Checkbox
+    {
+        return $this->withMeta(['separateGroupsAndPermissions' => $value]);
+    }
+
     /**
      * Specify the available options
      */

@@ -1,11 +1,21 @@
 /* Nova Tool CSS */
 
 .bg-danger {
-    /*background-color: #ff6961;*/
     background-color: rgba(var(--colors-red-500));
 }
 
 .bg-success {
-    /*background-color: #22d39a;*/
     background-color: rgba(var(--colors-green-500));
+}
+
+.grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.col-span-2 {
+    grid-column: span 2;
+}
+
+.col-span-3 {
+    grid-column: span 3;
 }

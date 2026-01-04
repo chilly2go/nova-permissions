@@ -10,4 +10,5 @@ return [
         'permission' => env('TRANSLATION_PERMISSION_RESOURCE_GROUP', 'permissions.Permissions'),
     ],
     'translation_prefix' => env('TRANSLATION_PREFIX', 'permissions.'),
+    'separate_groups_and_permissions' => env('SEPARATE_GROUPS_AND_PERMISSIONS', false),
 ];

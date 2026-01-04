@@ -115,7 +115,8 @@ class Role extends Resource
                         'label' => $label,
                     ];
 
-                })->groupBy('group')->toArray()),
+                })->groupBy('group')->toArray())
+            ->separateGroupsAndPermissions(config('nova-permissions.separate_groups_and_permissions', true)),
             Text::make(__($prefix.'Users'), function () {
                 return $this->users()->count();
             })->exceptOnForms(),
