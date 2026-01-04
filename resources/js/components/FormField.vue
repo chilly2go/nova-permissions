@@ -32,7 +32,7 @@
                         </div>
                     </div>
 
-                    <div v-show="activeItem === group" class="w-1/3 bg-white shadow dark:bg-gray-800 px-2 py-2 border-l border-r border-b border-50 rounded-b-lg absolute z-50">
+                    <div v-show="activeItem === group" class="w-1/3 bg-white shadow dark:bg-gray-800 px-2 py-2 border-l border-r border-b border-50 rounded-b-lg">
                         <div
                             v-for="(permission, option) in permissions"
                             :key="permission.option"
