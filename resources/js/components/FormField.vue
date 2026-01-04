@@ -36,17 +36,17 @@
                         <div
                             v-for="(permission, option) in permissions"
                             :key="permission.option"
-                            class="px-1 py-1 items-center"
+                            class="px-1 py-1 items-center flex gap-2"
                         >
                             <checkbox
                                 :value="permission.option"
                                 :checked="isChecked(permission.option)"
                                 @input="toggleOption(permission.option)"
                                 class="pr-2"
-                            ></checkbox>&nbsp;
+                            ></checkbox>
                             <label
                                 :for="field.name"
-                                v-text="__(field.translation_prefix + permission.option)"
+                                class="w-full inline-block"
                                 v-text="permission.label"
                                 @click="toggleOption(permission.option)"
                             ></label>
