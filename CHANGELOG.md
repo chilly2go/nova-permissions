@@ -2,6 +2,11 @@
 
 All notable changes to `nova-permissions` will be documented in this file
 
+## 1.0.3 - 2026-01-04
+
+- Add new viewing mode. Opening a group with many permissions would push other elements around a lot. This new mode has 1 column for groups and a separate column for permissions to reduce / prevent pushing around other elements.
+- Remove `withGroups` option as there was not handling for having this disabled and no setting to control it. Which means it was always on. The corresponding checks have been removed as there was no option to turn this off.
+
 ## v1.0.2 - 2026-01-04
 
 - Remove absolute positioning of permissions container in Form Field to prevent overflow resulting in hidden permissions
