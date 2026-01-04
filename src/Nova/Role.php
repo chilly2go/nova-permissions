@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Resource;
 use Spatie\Permission\Models\Permission as SpatiePermission;
@@ -97,13 +98,25 @@ class Role extends Resource
             Select::make(__($prefix.'Guard Name'), 'guard_name')
                 ->options($guardOptions->toArray())
                 ->rules(['required', Rule::in($guardOptions)]),
-            Checkbox::make(__($prefix.'Permissions'), 'prepared_permissions')->withGroups()->options(SpatiePermission::all()->map(function ($permission, $key) {
-                return [
-                    'group' => __(ucfirst($permission->group)),
-                    'option' => $permission->name,
-                    'label' => __($permission->description),
-                ];
-            })->groupBy('group')->toArray()),
+            Checkbox::make(__($prefix.'Permissions'), 'prepared_permissions')
+                ->canSee(function () {
+                    return request()->has('viaResource') !== null;
+                })
+                ->withGroups()->options(SpatiePermission::all()->map(function ($permission, $key) use ($prefix) {
+                    $labelKey = $prefix . $permission->name;
+                    $label = __($labelKey);
+
+                    if ($label === $labelKey)
+                        $label = $permission->name;
+
+                    return [
+                        'group' => __($prefix . ucfirst($permission->group)),
+                        'option' => $permission->name,
+                        'label' => $label,
+                    ];
+
+                })->groupBy('group')->toArray())
+            ,
             Text::make(__($prefix.'Users'), function () {
                 return $this->users()->count();
             })->exceptOnForms(),

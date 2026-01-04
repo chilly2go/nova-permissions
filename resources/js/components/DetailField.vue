@@ -9,7 +9,7 @@
                 >
                     <div class="cursor-pointer flex items-center px-2 py-2 bg-40 rounded-lg" @click="showItem(group)">
                         <div class="w-full flex items-center">
-                            <h3 class="capitalize flex-1">{{ __(field.translation_prefix + group) }}</h3>
+                            <h3 class="capitalize flex-1">{{ group }}</h3>
                             <div class="flex flex-wrap">
                                 <div
                                     v-for="(permission, option) in permissions"
@@ -37,7 +37,7 @@
                             <span
                                 class="inline-block rounded-full w-2 h-2"
                                 :class="optionClass(permission.option)"></span>
-                            <span>&nbsp;{{ __(field.translation_prefix + permission.option) }}</span>
+                            <span>&nbsp;{{ permission.label }}</span>
                         </div>
                     </div>
                 </div>
