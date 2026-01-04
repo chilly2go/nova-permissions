@@ -29,14 +29,6 @@ class Checkbox extends Field
     }
 
     /**
-     * Disable type casting of array keys to numeric values to return the unmodified keys.
-     */
-    public function withGroups(): Checkbox
-    {
-        return $this->withMeta(['withGroups' => true]);
-    }
-
-    /**
      * Hydrate the given attribute on the model based on the incoming request.
      *
      * @param  string  $requestAttribute

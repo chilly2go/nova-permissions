@@ -101,7 +101,7 @@ class Role extends Resource
                 ->canSee(function () {
                     return request()->has('viaResource') !== null;
                 })
-                ->withGroups()->options(SpatiePermission::all()->map(function ($permission, $key) use ($prefix) {
+                ->options(SpatiePermission::all()->map(function ($permission, $key) use ($prefix) {
                     $labelKey = $prefix.$permission->name;
                     $label = __($labelKey);
 

@@ -6,7 +6,7 @@
                 <span class="ml-auto btn btn-primary btn-default custom-button" @click="uncheckAll()">{{ __(field.translation_prefix + 'Clear Selection') }}</span>
             </div>
 
-            <div class="flex flex-wrap" v-if="field.withGroups">
+            <div class="flex flex-wrap">
                 <div
                     v-for="(permissions, group) in field.options"
                     :key="group"
@@ -87,21 +87,15 @@ export default {
             }
         },
         checkAll() {
-            // With Groups
-            if (this.field.withGroups) {
-                let permissions = Array.isArray(this.field.options) ? this.field.options : Object.values(this.field.options).flat();;
-                for (var i = 0; i < permissions.length; i++) {
-                    this.check(permissions[i].option);
-                }
+            let permissions = Array.isArray(this.field.options) ? this.field.options : Object.values(this.field.options).flat();;
+            for (var i = 0; i < permissions.length; i++) {
+                this.check(permissions[i].option);
             }
         },
         uncheckAll() {
-            // With Groups
-            if (this.field.withGroups) {
-                let permissions = Array.isArray(this.field.options) ? this.field.options : Object.values(this.field.options).flat();
-                for (var i = 0; i < permissions.length; i++) {
-                    this.uncheck(permissions[i].option);
-                }
+            let permissions = Array.isArray(this.field.options) ? this.field.options : Object.values(this.field.options).flat();
+            for (var i = 0; i < permissions.length; i++) {
+                this.uncheck(permissions[i].option);
             }
         },
         check(option) {
