@@ -4,7 +4,6 @@
 # Nova Permissions tool based on spatie permissions
 
 [//]: # ([![Latest Version on Packagist]&#40;https://img.shields.io/packagist/v/chilly2go/nova-permissions.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/chilly2go/nova-permissions&#41;)
-[![Quality Score](https://img.shields.io/scrutinizer/g/chilly2go/nova-permissions.svg?style=flat-square)](https://scrutinizer-ci.com/g/chilly2go/nova-permissions)
 
 [//]: # ([![Total Downloads]&#40;https://img.shields.io/packagist/dt/chilly2go/nova-permissions.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/chilly2go/nova-permissions&#41;)
 
