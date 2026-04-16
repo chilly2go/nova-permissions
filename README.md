@@ -4,8 +4,6 @@
 # Nova Permissions tool based on spatie permissions
 
 [//]: # ([![Latest Version on Packagist]&#40;https://img.shields.io/packagist/v/chilly2go/nova-permissions.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/chilly2go/nova-permissions&#41;)
-![CircleCI branch](https://img.shields.io/circleci/project/github/chilly2go/nova-permissions/master.svg?style=flat-square)
-[![Build Status](https://img.shields.io/travis/chilly2go/nova-permissions/master.svg?style=flat-square)](https://travis-ci.org/chilly2go/nova-permissions)
 [![Quality Score](https://img.shields.io/scrutinizer/g/chilly2go/nova-permissions.svg?style=flat-square)](https://scrutinizer-ci.com/g/chilly2go/nova-permissions)
 
 [//]: # ([![Total Downloads]&#40;https://img.shields.io/packagist/dt/chilly2go/nova-permissions.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/chilly2go/nova-permissions&#41;)
@@ -87,6 +85,8 @@ If you discover any security related issues, please email code@chilly2go.de inst
 
 ## Credits
 
+- This Package is inspired by [GrapheneICT/nova-permissions](https://github.com/GrapheneICT/nova-permissions)
+    - Which is inspired by [eminiarts/nova-permission](https://novapackages.com/packages/eminiarts/nova-permissions)
 - [chilly2go](https://github.com/chilly2go)
 
 ## License
